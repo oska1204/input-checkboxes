@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="inputCheckboxes.js"></script>
+</head>
+<body>
+    <input-checkboxes></input-checkboxes>
+    <script>
+        const inputCheckboxes = document.querySelector('input-checkboxes');
+        inputCheckboxes.objectTags = [
+            {
+                name: 'El-cycle',
+                isSelected: false,
+                description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+            },
+            {
+                name: 'Ladcycle',
+                isSelected: false,
+                description: 'Quam totam ipsum ea, dolor perferendis magni consectetur.'
+            },
+            {
+                name: 'Foldecycle',
+                isSelected: true,
+                description: 'Eum illum vero accusantium laudantium nobis maiores voluptas.'
+            }
+        ];
+    </script>
+</body>
+
+</html>
