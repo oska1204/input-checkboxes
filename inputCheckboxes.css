@@ -29,22 +29,20 @@ li, [type=checkbox] {
     -webkit-appearance: none;
     pointer-events: all;
     background: transparent;
-    transition: background 120ms ease-out;
+    transition: background-color 120ms ease-out;
 }
 [type=checkbox]:checked {
     background: var(--input-checkboxes-checkbox, orange);
 }
 [type=checkbox]:hover {
-    box-shadow: inset 0 0 0 5rem rgba(127, 127, 127, .15);
+    background: linear-gradient(rgba(127, 127, 127, .15),rgba(127, 127, 127, .15)), #f2ecd9;
 }
 [type=checkbox]:checked:hover {
-    box-shadow: inset 0 0 0 5rem rgba(255, 255, 255, .25);
+    background: linear-gradient(rgba(255, 255, 255, .25),rgba(255, 255, 255, .25)), var(--input-checkboxes-checkbox, orange);
 }
 [type=checkbox]:focus {
     outline: none;
-    box-shadow:
-        0 0 0 2px rgb(77, 144, 254)
-    ;
+    box-shadow: inset 0 0 0 2px rgb(77, 144, 254);
 }
 :host {
     display: block;
