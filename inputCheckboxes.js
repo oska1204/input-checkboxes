@@ -14,8 +14,9 @@ class InputCheckboxes extends HTMLElement {
         _objTags.forEach(e => {
             const li = document.createElement('li');
             const checkbox = document.createElement('input');
+            const textNode = document.createTextNode(e.name);
             li.appendChild(checkbox);
-            li.append(e.name);
+            li.appendChild(textNode);
             li.setAttribute('title', e.description);
             checkbox.setAttribute('type', 'checkbox');
             checkbox.checked = e.isSelected;
