@@ -12,7 +12,7 @@
     <input-checkboxes></input-checkboxes>
     <script>
         const inputCheckboxes = document.querySelector('input-checkboxes');
-        inputCheckboxes.objectTags = [
+        inputCheckboxes.setData = [
             {
                 name: 'El-cycle',
                 isSelected: false,
@@ -29,6 +29,7 @@
                 description: 'Eum illum vero accusantium laudantium nobis maiores voluptas.'
             }
         ];
+        inputCheckboxes.addEventListener('tags-changed', passedData => console.log(inputCheckboxes.getTags));
     </script>
 </body>
 

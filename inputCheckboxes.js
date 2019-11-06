@@ -33,12 +33,15 @@ class InputCheckboxes extends HTMLElement {
         });
         this._updateState(this._objTags);
     }
-    get objectTags() {
+    get getData() {
         return this._objTags;
     }
-    set objectTags(arr) {
+    set setData(arr) {
         this._updateUi(arr);
         this._updateState(arr);
+    }
+    get getTags() {
+        return this.tagsArr;
     }
     _updateState(arr) {
         // if ('URLSearchParams' in window) {
@@ -48,8 +51,10 @@ class InputCheckboxes extends HTMLElement {
         //     const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
         //     history.pushState(null, '', newRelativePathQuery);
         // }
-        localStorage.tagsArr = JSON.stringify(arr.filter(tagObj => tagObj.isSelected).map(tagObj => tagObj.name));
+        this.tagsArr = arr.filter(tagObj => tagObj.isSelected).map(tagObj => tagObj.name);
+        localStorage.tagsArr = JSON.stringify(this.tagsArr);
         this._objTags = arr;
+        this._tagsChanged();
     }
     _updateUi(arr) {
         // if ('URLSearchParams' in window) {
@@ -80,6 +85,10 @@ class InputCheckboxes extends HTMLElement {
         if (ul) this.shadowRoot.removeChild(ul);
         this.shadowRoot.appendChild(this._createCheckboxes(arr));
     }
+    _tagsChanged() {
+        const tagsChanged = new Event('tags-changed');
+        this.dispatchEvent(tagsChanged);
+    }
 }
 
-customElements.define('input-checkboxes', InputCheckboxes)
+customElements.define('input-checkboxes', InputCheckboxes);
