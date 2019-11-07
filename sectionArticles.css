@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+section {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fcf5ed;
+    margin: .75rem;
+    padding: .5rem;
+}
+article {
+    background: #ece5dd;
+    display: inline-block;
+    margin: .75rem;
+    padding: .5rem;
+    width: min-content;
+}
+.primary-heading {
+    margin: .5rem 0 0 .75rem;
+}
+.secondary-heading {
+    margin: 0 0 .5rem 0;
+    padding: .5rem 0 .125rem 0    ;
+    border-bottom: 1px black solid;
+}

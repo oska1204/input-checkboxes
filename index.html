@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="inputCheckboxes.js"></script>
+    <script src="sectionArticles.js"></script>
 </head>
+
 <body>
     <input-checkboxes></input-checkboxes>
     <script>
@@ -29,8 +31,9 @@
                 description: 'Eum illum vero accusantium laudantium nobis maiores voluptas.'
             }
         ];
-        inputCheckboxes.addEventListener('tags-changed', passedData => console.log(inputCheckboxes.getTags));
+        inputCheckboxes.addEventListener('tags-changed', e => console.log(e.target.getTags));
     </script>
+    <section-articles></section-articles>
 </body>
 
 </html>

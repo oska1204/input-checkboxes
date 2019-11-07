@@ -72,15 +72,17 @@ class InputCheckboxes extends HTMLElement {
         //     }
         //     console.log(arr)
         // }
-        const tagsInLocalstorage = JSON.parse(localStorage.tagsArr);
-        arr.forEach(e => {
-            tagsInLocalstorage.forEach(f => {
-                if (e.name === f) {
-                    e.isSelected = true;
-                }
+        if (localStorage.tagsArr) {
+            const tagsInLocalstorage = JSON.parse(localStorage.tagsArr);
+            arr.forEach(e => {
+                tagsInLocalstorage.forEach(f => {
+                    if (e.name === f) {
+                        e.isSelected = true;
+                    }
+                });
+                return e;
             });
-            return e;
-        });
+        }
         const ul = this.shadowRoot.querySelector('ul');
         if (ul) this.shadowRoot.removeChild(ul);
         this.shadowRoot.appendChild(this._createCheckboxes(arr));
