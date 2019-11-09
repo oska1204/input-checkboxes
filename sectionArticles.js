@@ -37,7 +37,7 @@ class SectionArticles extends HTMLElement {
         style.rel = 'stylesheet';
         style.href = 'sectionArticles.css';
         this.shadowRoot.appendChild(style);
-        this.shadowRoot.innerHTML = `
+        this.shadowRoot.innerHTML += `
         <h2 class="primary-heading">List of cats</h2>
         <section>
         ${this._data.map(e => {
