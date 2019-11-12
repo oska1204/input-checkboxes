@@ -22,9 +22,12 @@ article {
     padding: .75rem;
     width: min-content;
 }
-img {
-    min-width: 300px;
-    min-height: 200px;
+.image {
+    width: 300px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .secondary-heading {
     margin: .5rem 0 .75rem 0;
@@ -42,6 +45,7 @@ img {
 .discount span {
     text-decoration: line-through;
     margin-left: .5rem;
+    color: #999999;
 }
 .categories {
     display: flex;
@@ -56,4 +60,12 @@ img {
     color: hsl(30, 1%, 20%);
     border-radius: .5rem;
     margin: .25rem .25rem .25rem 0;
+    background: linear-gradient(360deg, #ccbbaa, #eeddcc);
+}
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 0;
+    width: 100%;
 }

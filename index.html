@@ -13,8 +13,10 @@
 
 <body>
     <input-checkboxes></input-checkboxes>
+    <section-articles></section-articles>
     <script>
         const inputCheckboxes = document.querySelector('input-checkboxes');
+        const sectionArticles = document.querySelector('section-articles');
         inputCheckboxes.setData = [
             {
                 name: 'El-cycle',
@@ -32,9 +34,13 @@
                 description: 'Eum illum vero accusantium laudantium nobis maiores voluptas.'
             }
         ];
-        inputCheckboxes.addEventListener('tags-changed', e => console.log(e.target.getTags));
+        inputCheckboxes.addEventListener('tags-changed', e => {
+            sectionArticles.setCurrentCategories = e.target.getTags;
+        });
+        window.addEventListener('DOMContentLoaded', () => {
+            sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
+        });
     </script>
-    <section-articles></section-articles>
 </body>
 
 </html>
