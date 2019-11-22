@@ -17,7 +17,7 @@ class InputCheckboxes extends HTMLElement {
             const textNode = document.createTextNode(e.name);
             li.appendChild(checkbox);
             li.appendChild(textNode);
-            li.setAttribute('title', e.description);
+            if (e.description) li.setAttribute('title', e.description);
             checkbox.setAttribute('type', 'checkbox');
             checkbox.checked = e.isSelected;
             checkbox.addEventListener('change', this._changeCheckbox.bind(this));

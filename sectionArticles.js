@@ -41,41 +41,10 @@ class SectionArticles extends HTMLElement {
         this.shadowRoot.appendChild(style);
         this.shadowRoot.innerHTML += `
         <h2 class="primary-heading">List of cats</h2>
-        <section>
-        ${this._data.map(e => {
-            return `<article data-categories="${e.categories}">
-                <div class="image" style="background-image: url(${e.images[e.featuredImage]})" alt="kitten"></div>
-                <h3 class="secondary-heading">${e.title}</h3>
-                <div class="description">
-                    <p>${e.description}</p>
-                </div>
-                <ul class="categories">
-                ${e.categories.map(f => {
-                return `<li>${f}</li>`
-            }).join('')}
-                </ul>
-                <div class="price">
-                    <div class="price-tag">Price: <span>${e.price},-</span></div>
-                    ${e.discount ? `<div class="discount">${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
-                </div>
-            </article>`
-        }).join('')}
-        </section>
+        <section></section>
         `;
-        // this.shadowRoot.innerHTML += `
-        // <h2 class="primary-heading">List of cats</h2>
-        // <section>
-        //     <article>
-        //         <img src="http://placekitten.com/300/200" alt="kitten">
-        //         <h3 class="secondary-heading">This is a Cat</h3>
-        //         <div class="description">
-        //             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis iste similique eum sequi hic suscipit quibusdam. Voluptas quasi suscipit, dolorum alias soluta totam distinctio autem quam! Alias ratione dolore praesentium animi? Ullam, molestias repellendus natus officiis non consequatur repudiandae temporibus consectetur rem numquam quae quia reiciendis ipsa expedita dolores adipisci.</p>
-        //         </div>
-        //         <ul class="categories"><li>Kitten</li><li>Lorem</li><li>Ipsum</li></ul>
-        //         <div class="price"><div class="price-tag">Price: <span>350$</span></div><div class="discount">-30%<span>(500$)</span></div></div>
-        //     </article>
-        // </section>
-        // `;
+        const section = this.shadowRoot.querySelector('section');
+        this._createArticles(section);
         this._articles = this.shadowRoot.querySelectorAll('article');
     }
     set setCurrentCategories(arr) {
@@ -93,7 +62,7 @@ class SectionArticles extends HTMLElement {
                     setBool = false;
                 }
             });
-            setBool ? article.style.display = 'block' : article.style.display = 'none';
+            setBool ? article.style.display = '' : article.style.display = 'none';
             if (!hasArticle && setBool) {
                 hasArticle = true;
             }
@@ -108,6 +77,28 @@ class SectionArticles extends HTMLElement {
         } else if (hasArticle && errorDiv) {
             errorDiv.parentNode.removeChild(errorDiv);
         }
+    }
+    _createArticles(section) {
+        this._data.forEach(e => {
+            const fragment = document.createElement('template');
+            fragment.innerHTML = `<article data-categories="${e.categories}">
+                <img class="image" src="${e.images[e.featuredImage]}" alt="kitten"></div>
+                <h3 class="secondary-heading">${e.title}</h3>
+                <div class="description">
+                    <p>${e.description}</p>
+                </div>
+                <ul class="categories">
+                ${e.categories.map(category => {
+                return `<li>${category}</li>`
+                }).join('')}
+                </ul>
+                <div class="price">
+                    <div class="price-tag">Price: <span>${e.price},-</span></div>
+                    ${e.discount ? `<div class="discount">${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
+                </div>
+            </article>`
+            section.appendChild(fragment.content);
+        })
     }
 }
 customElements.define('section-articles', SectionArticles)

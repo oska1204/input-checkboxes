@@ -25,9 +25,7 @@ article {
 .image {
     width: 300px;
     height: 200px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    object-fit: cover;
 }
 .secondary-heading {
     margin: .5rem 0 .75rem 0;
