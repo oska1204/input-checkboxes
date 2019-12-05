@@ -6,8 +6,8 @@ class InputCheckboxes extends HTMLElement {
         style.rel = 'stylesheet';
         style.href = 'inputCheckboxes.css';
         this.shadowRoot.appendChild(style);
-        this._objTags = [{ name: 'Tag 1', isSelected: false, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.' }, { name: 'Tag 2', isSelected: false, description: 'Molestias, blanditiis, iste eaque officia tempore temporibus.' }, { name: 'Tag 3', isSelected: true, description: 'Pariatur ipsam eum consequuntur reiciendis veniam doloremque laboriosam earum.' }];
-        this._updateUi(this._objTags);
+        // this._objTags = [{ name: 'Tag 1', isSelected: false, description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.' }, { name: 'Tag 2', isSelected: false, description: 'Molestias, blanditiis, iste eaque officia tempore temporibus.' }, { name: 'Tag 3', isSelected: true, description: 'Pariatur ipsam eum consequuntur reiciendis veniam doloremque laboriosam earum.' }];
+        // this._updateUi(this._objTags);
     }
     _createCheckboxes(_objTags) {
         const ul = document.createElement('ul');
@@ -17,7 +17,7 @@ class InputCheckboxes extends HTMLElement {
             const textNode = document.createTextNode(e.name);
             li.appendChild(checkbox);
             li.appendChild(textNode);
-            li.setAttribute('title', e.description);
+            if (e.description) li.setAttribute('title', e.description);
             checkbox.setAttribute('type', 'checkbox');
             checkbox.checked = e.isSelected;
             checkbox.addEventListener('change', this._changeCheckbox.bind(this));
