@@ -7,71 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="inputCheckboxes.js"></script>
-    <script src="sectionArticles.js"></script>
+    <script type="module" src="sectionArticles.js"></script>
     <style>body{margin: 0;}</style>
 </head>
 
 <body>
     <input-checkboxes></input-checkboxes>
     <section-articles></section-articles>
-    <script>
-        const inputCheckboxes = document.querySelector('input-checkboxes');
-        const sectionArticles = document.querySelector('section-articles');
-        inputCheckboxes.setData = [
-            {
-                name: 'El-cycle',
-            },
-            {
-                name: 'Ladcycle',
-                isSelected: false,
-                description: 'Quam totam ipsum ea, dolor perferendis magni consectetur.'
-            },
-            {
-                name: 'Foldecycle',
-                isSelected: true,
-                description: 'Eum illum vero accusantium laudantium nobis maiores voluptas.'
-            }
-        ];
-        sectionArticles.setData = [
-            {
-                "images": [
-                    "http://placekitten.com/300/250",
-                    "http://placekitten.com/400/250"
-                ],
-                "featuredImage": 0,
-                "discount": 150,
-                "categories": [
-                    "Foldecycle",
-                    "Lorem",
-                    "Ipsum"
-                ],
-                "title": "BIOMEGA AMS",
-                "description": "Biomega AMS is a uniquely designed, stylish and  low maintenance electric bike that is well suited to cycling in the city.\n\nSpecial parts to compare when testing:\n\nCarbon belt drive\n\nFront wheel motor\n\n374.4 Wh battery, 45–65 km range",
-                "price": 349,
-                "id": "5dc001d0a5bf8851702cec2e"
-            }, {
-                "images": [
-                    "http://placekitten.com/300/260",
-                    "http://placekitten.com/400/260"
-                ],
-                "featuredImage": 0,
-                "discount": 0,
-                "categories": [
-                    "El-cycle",
-                ],
-                "title": "BIOMEGA AMS",
-                "description": "Biomega AMS is a uniquely designed, stylish and  low maintenance electric bike that is well suited to cycling in the city.\n\nSpecial parts to compare when testing:\n\nCarbon belt drive\n\nFront wheel motor\n\n374.4 Wh battery, 45–65 km range",
-                "price": 100,
-                "id": "5dc001d0a5bf8851702cec2e"
-            }
-        ];
-        inputCheckboxes.addEventListener('tags-changed', e => {
-            sectionArticles.setCurrentCategories = e.target.getTags;
-        });
-        window.addEventListener('DOMContentLoaded', () => {
-            sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
-        });
-    </script>
+    <script src="manageWebcomponents.js"></script>
 </body>
 
 </html>

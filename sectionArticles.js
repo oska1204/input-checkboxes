@@ -1,8 +1,10 @@
+import api from './apiTemplate.js';
 class SectionArticles extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this._data = [];
+        this.api = api;
         const style = document.createElement('link');
         style.rel = 'stylesheet';
         style.href = 'sectionArticles.css';
@@ -14,44 +16,12 @@ class SectionArticles extends HTMLElement {
         `;
         this.shadowRoot.appendChild(template.content);
         this._section = this.shadowRoot.querySelector('section');
-        // this._data = [
-        //     {
-        //         "images": [
-        //             "http://placekitten.com/300/250",
-        //             "http://placekitten.com/400/250"
-        //         ],
-        //         "featuredImage": 0,
-        //         "discount": 150,
-        //         "categories": [
-        //             "Foldecycle",
-        //             "Lorem",
-        //             "Ipsum"
-        //         ],
-        //         "title": "BIOMEGA AMS",
-        //         "description": "Biomega AMS is a uniquely designed, stylish and  low maintenance electric bike that is well suited to cycling in the city.\n\nSpecial parts to compare when testing:\n\nCarbon belt drive\n\nFront wheel motor\n\n374.4 Wh battery, 45–65 km range",
-        //         "price": 349,
-        //         "id": "5dc001d0a5bf8851702cec2e"
-        //     }, {
-        //         "images": [
-        //             "http://placekitten.com/300/260",
-        //             "http://placekitten.com/400/260"
-        //         ],
-        //         "featuredImage": 0,
-        //         "discount": 0,
-        //         "categories": [
-        //             "El-cycle",
-        //         ],
-        //         "title": "BIOMEGA AMS",
-        //         "description": "Biomega AMS is a uniquely designed, stylish and  low maintenance electric bike that is well suited to cycling in the city.\n\nSpecial parts to compare when testing:\n\nCarbon belt drive\n\nFront wheel motor\n\n374.4 Wh battery, 45–65 km range",
-        //         "price": 100,
-        //         "id": "5dc001d0a5bf8851702cec2e"
-        //     }
-        // ];
-        // this._createArticles(this._section);
     }
     set setData(arr) {
         this._data = arr;
         this._createArticles(this._section);
+        // test 
+        this._section.querySelectorAll('img').forEach(e=>e.src = `https://placekitten.com/${500 + 100}/${Math.floor((Math.random() * 300)) + 100}`)
     }
     set setCurrentCategories(arr) {
         this._updateUi(arr);
@@ -90,10 +60,10 @@ class SectionArticles extends HTMLElement {
         this._data.forEach(e => {
             const articleTemplate = document.createElement('template');
             articleTemplate.innerHTML = `<article data-categories="${e.categories}">
-                <img class="image" src="${e.images[e.featuredImage]}" alt="kitten">
+                <img class="image" src="${e.images[e.featuredImage]}" alt="${e.images[e.featuredImage]}">
                 <h3 class="secondary-heading">${e.title}</h3>
                 <div class="description">
-                    <p>${e.description}</p>
+                    <p title="${e.description}">${e.description}</p>
                 </div>
                 <ul class="categories">
                     ${e.categories.map(category => {
