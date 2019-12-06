@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const sectionArticlesApiSuccess = function(parsedData) {
         sectionArticles.setData = parsedData.data;
+        sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
     }
     const sectionArticlesApiError = function(error) {
         console.log(error);
@@ -25,8 +26,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
     inputCheckboxes.addEventListener('tags-changed', e => {
         sectionArticles.setCurrentCategories = e.target.getTags;
-    });
-    window.addEventListener('DOMContentLoaded', () => {
-        sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
     });
 });
