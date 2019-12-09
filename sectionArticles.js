@@ -75,7 +75,7 @@ class SectionArticles extends HTMLElement {
                     </ul>
                     <div class="price">
                         <div class="price-tag">Price: <span>${e.price},-</span></div>
-                        ${e.discount ? `<div class="discount">${Math.floor((e.price / (e.discount + e.price) - 1)*-10)}%<span>${e.price + e.discount}</span></div>` : ``}
+                        ${e.discount ? `<div class="discount">${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
                     </div>
                 </div>
             </article>`
