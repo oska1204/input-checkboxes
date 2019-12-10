@@ -50,7 +50,7 @@ class SectionArticles extends HTMLElement {
             section.style.display = 'none';
             const errorTemplate = document.createElement('template');
             errorTemplate.innerHTML = `<div class="error">
-                <h3 class="error">No articles selected.</h3>
+                <h3>No articles selected.</h3>
             </div>`;
             this.shadowRoot.appendChild(errorTemplate.content)
         } else if (hasArticle && errorNode) {

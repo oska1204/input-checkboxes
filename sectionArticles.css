@@ -5,14 +5,14 @@
 }
 :host {
     display: block;
-    background: linear-gradient(135deg, #ebdcc2, #fff8f0);
     margin: 1rem;
+    background: linear-gradient(135deg, silver, #eee);
 }
 .primary-heading {
     padding: .75rem .75rem .5rem 1rem;
+    background: linear-gradient(135deg, #ebdcc2, #fff8f0);
 }
 section {
-    background: linear-gradient(135deg, silver, #eee);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
     padding: .5rem;
@@ -83,8 +83,6 @@ article {
     display: flex;
     justify-content: center;
     padding: 5rem 0;
-    width: 100%;
-    background: linear-gradient(135deg, silver, #eee);
 }
 @media screen and (max-width: 480px) {
     section {
