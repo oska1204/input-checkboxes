@@ -35,12 +35,13 @@ article {
 }
 .secondary-heading {
     margin: .5rem 0 0.375rem 0;
+    word-break: break-word;
 }
 .description, ul {
     overflow: hidden;
     white-space: nowrap;
 }
-.description p, ul li, h3 {
+.description p, ul li {
     overflow: hidden;
     text-overflow: ellipsis;
 }
