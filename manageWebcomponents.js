@@ -1,3 +1,4 @@
+import api from './apiTemplate.js';
 window.addEventListener('DOMContentLoaded', () => {
     const inputCheckboxes = document.querySelector('input-checkboxes');
     const sectionArticles = document.querySelector('section-articles');
@@ -9,7 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const sectionArticlesApiError = function(error) {
         console.log(error);
     };
-    sectionArticles.api('http://localhost:3000/bikes', sectionArticlesApiSuccess, sectionArticlesApiError);
     
     const inputCheckboxesApiSuccess = function(parsedData) {
         inputCheckboxes.setData = parsedData.data.map(obj => {
@@ -18,11 +18,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 description: obj.description
             }
         });
+        api('http://localhost:3000/bikes', sectionArticlesApiSuccess, sectionArticlesApiError);
     }
     const inputCheckboxesApiError = function(error) {
         console.log(error);
     };
-    sectionArticles.api('http://localhost:3000/categories', inputCheckboxesApiSuccess, inputCheckboxesApiError);
+    api('http://localhost:3000/categories', inputCheckboxesApiSuccess, inputCheckboxesApiError);
 
     inputCheckboxes.addEventListener('tags-changed', e => {
         sectionArticles.setCurrentCategories = e.target.getTags;

@@ -1,10 +1,8 @@
-import api from './apiTemplate.js';
 class SectionArticles extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this._data = [];
-        this.api = api;
         const style = document.createElement('link');
         style.rel = 'stylesheet';
         style.href = 'sectionArticles.css';
@@ -75,7 +73,7 @@ class SectionArticles extends HTMLElement {
                     </ul>
                     <div class="price">
                         <div class="price-tag">Price: <span>${e.price},-</span></div>
-                        ${e.discount ? `<div class="discount">${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
+                        ${e.discount ? `<div class="discount">-${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
                     </div>
                 </div>
             </article>`
