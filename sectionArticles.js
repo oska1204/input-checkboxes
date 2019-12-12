@@ -59,7 +59,7 @@ class SectionArticles extends HTMLElement {
     _createArticles(section) {
         this._data.forEach(e => {
             const articleTemplate = document.createElement('template');
-            articleTemplate.innerHTML = `<article data-categories="${e.categories}">
+            articleTemplate.innerHTML = `<article data-categories="${e.categories.map(category=>category.title)}">
                 <img class="image" src="${e.images[e.featuredImage]}" alt="${e.images[e.featuredImage]}">
                 <div class="content">
                     <h3 class="secondary-heading">${e.title}</h3>
@@ -68,12 +68,12 @@ class SectionArticles extends HTMLElement {
                     </div>
                     <ul class="categories">
                         ${e.categories.map(category => {
-                        return `<li>${category}</li>`
+                        return `<li title="${category.description}">${category.title}</li>`
                         }).join('')}
                     </ul>
                     <div class="price">
                         <div class="price-tag">Price: <span>${e.price},-</span></div>
-                        ${e.discount ? `<div class="discount">-${Math.floor((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
+                        ${e.discount ? `<div class="discount">-${Math.round((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
                     </div>
                 </div>
             </article>`

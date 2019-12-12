@@ -3,29 +3,29 @@ window.addEventListener('DOMContentLoaded', () => {
     const inputCheckboxes = document.querySelector('input-checkboxes');
     const sectionArticles = document.querySelector('section-articles');
 
-    const inputCheckboxesApiSuccess = function(parsedDataInputCheckboxes) {
-        inputCheckboxes.setData = parsedDataInputCheckboxes.data.map(obj => {
+    const inputCheckboxesApiSuccess = function(categoriesData) {
+        inputCheckboxes.setData = categoriesData.data.map(obj => {
             return { 
                 name: obj.title,
                 description: obj.description
             }
         });
         
-        const sectionArticlesApiSuccess = function(parsedDataSectionArticles) {
-            const theData = parsedDataSectionArticles.data;            
-            theData.forEach(dataElement => {
-                dataElement.categories = dataElement.categories.map(categorie => {
-                    parsedDataInputCheckboxes.data.forEach(e => {
-                        if (categorie === e.id) {
-                            categorie = e.title
+        const sectionArticlesApiSuccess = function(bikesData) {
+            const theData = bikesData.data.map(bikeObj => {
+                bikeObj.categories = bikeObj.categories.map(bikeCategory => {
+                    categoriesData.data.forEach(categoryObj => {
+                        if (bikeCategory === categoryObj.id) {
+                            bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
                         }
                     })
-                    return categorie
+                    console.log(bikeCategory)
+                    return bikeCategory
                 });
-                console.log(dataElement.categories)
+                return bikeObj;
             });
             sectionArticles.setData = theData;
-            sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
+            sectionArticles.setCurrentcategories = inputCheckboxes.getTags;
         }
     
         const sectionArticlesApiError = function(error) {
@@ -42,6 +42,6 @@ window.addEventListener('DOMContentLoaded', () => {
     api('http://localhost:3000/categories', inputCheckboxesApiSuccess, inputCheckboxesApiError);
 
     inputCheckboxes.addEventListener('tags-changed', e => {
-        sectionArticles.setCurrentCategories = e.target.getTags;
+        sectionArticles.setCurrentcategories = e.target.getTags;
     });
 });
