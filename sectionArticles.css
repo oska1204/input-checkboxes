@@ -37,11 +37,11 @@ article {
     margin: .5rem 0 0.375rem 0;
     word-break: break-word;
 }
-.description, ul {
+.description {
     overflow: hidden;
     white-space: nowrap;
 }
-.description p, ul li {
+.description p {
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -50,6 +50,7 @@ article {
     margin: .5rem 0 0 0;
     flex-wrap: wrap;
     list-style: none;
+    word-break: break-word;
 }
 .categories li {
     padding: .25rem .5rem;
