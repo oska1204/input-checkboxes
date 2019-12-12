@@ -19,7 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
                             bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
                         }
                     })
-                    console.log(bikeCategory)
                     return bikeCategory
                 });
                 return bikeObj;

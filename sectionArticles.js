@@ -1,3 +1,4 @@
+import api from './apiTemplate.js';
 class SectionArticles extends HTMLElement {
     constructor() {
         super();
@@ -75,8 +76,15 @@ class SectionArticles extends HTMLElement {
                         ${e.discount ? `<div class="discount">-${Math.round((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
                     </div>
                 </div>
-            </article>`
-            section.appendChild(articleTemplate.content);
+            </article>`;
+            const imageApiSuccess = function(imageData) {
+                console.log(imageData);
+                section.appendChild(articleTemplate.content);
+            };
+            const imageApiError = function(error) {
+                console.log(error);
+            };
+            api(`http://localhost:3000/images/${e.images[e.featuredImage]}`, imageApiSuccess, imageApiError);
         })
     }
 }
