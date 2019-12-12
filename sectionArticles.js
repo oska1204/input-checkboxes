@@ -60,7 +60,7 @@ class SectionArticles extends HTMLElement {
         this._data.forEach(e => {
             const articleTemplate = document.createElement('template');
             articleTemplate.innerHTML = `<article data-categories="${e.categories.map(category=>category.title)}">
-                <img class="image" src="http://localhost:3000/images/${e.images[e.featuredImage]}/large" alt="${e.images[e.featuredImage]}">
+                <img class="image" src="http://localhost:3000/images/${e.images[e.featuredImage].id}/large" alt="${e.images[e.featuredImage].alt}">
                 <div class="content">
                     <h3 class="secondary-heading">${e.title}</h3>
                     <div class="description">
@@ -77,14 +77,7 @@ class SectionArticles extends HTMLElement {
                     </div>
                 </div>
             </article>`;
-            const imageApiSuccess = function(imageData) {
-                console.log(imageData);
-                section.appendChild(articleTemplate.content);
-            };
-            const imageApiError = function(error) {
-                console.log(error);
-            };
-            api(`http://localhost:3000/images/${e.images[e.featuredImage]}`, imageApiSuccess, imageApiError);
+            section.appendChild(articleTemplate.content);
         })
     }
 }
