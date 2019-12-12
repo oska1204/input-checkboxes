@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 return bikeObj;
             });
             sectionArticles.setData = theData;
-            sectionArticles.setCurrentcategories = inputCheckboxes.getTags;
+            sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
         }
     
         const sectionArticlesApiError = function(error) {
@@ -42,6 +42,6 @@ window.addEventListener('DOMContentLoaded', () => {
     api('http://localhost:3000/categories', inputCheckboxesApiSuccess, inputCheckboxesApiError);
 
     inputCheckboxes.addEventListener('tags-changed', e => {
-        sectionArticles.setCurrentcategories = e.target.getTags;
+        sectionArticles.setCurrentCategories = e.target.getTags;
     });
 });
