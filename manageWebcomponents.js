@@ -23,16 +23,21 @@ window.addEventListener('DOMContentLoaded', () => {
                 description: categoryObj.description
             }
         });
+        console.log(inputCheckboxes.getData)
         const bikesArr = bikesData.map(bikeObj => {
-            bikeObj.categories.forEach(bikeCategory => {
+            bikeObj.categories = bikeObj.categories.map(bikeCategory => {
                 categoriesData.forEach(categoryObj => {
                     if (bikeCategory === categoryObj.id) {
                         bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
                     }
                 });
+                return bikeCategory;
             });
+            console.log(bikeObj)
             return bikeObj;
         });
+
+
         let waitingForImageApis = bikesArr.length;
         
         const isImageApisDone = function() {
