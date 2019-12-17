@@ -23,7 +23,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 description: categoryObj.description
             }
         });
-        console.log(inputCheckboxes.getData)
         const bikesArr = bikesData.map(bikeObj => {
             bikeObj.categories = bikeObj.categories.map(bikeCategory => {
                 categoriesData.forEach(categoryObj => {
