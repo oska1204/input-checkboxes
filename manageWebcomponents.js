@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const theFunction = function({ categoriesData: categoriesData, bikesData: bikesData }) {
+    const theFunction = function({ categoriesData, bikesData }) {
         inputCheckboxes.setData = categoriesData.map(categoryObj => {
             return { 
                 name: categoryObj.title,
