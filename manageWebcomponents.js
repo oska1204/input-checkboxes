@@ -33,7 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
                 return bikeCategory;
             });
-            console.log(bikeObj)
             return bikeObj;
         });
 

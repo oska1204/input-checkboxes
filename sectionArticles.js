@@ -57,23 +57,42 @@ class SectionArticles extends HTMLElement {
         }
     }
     _createArticles(section) {
-        this._data.forEach(e => {
+        const dataSetCategories = function(categories) {
+            return categories.map(category=>category.title).join(',');
+        }
+
+        const categoriesListItems = function(categories) {
+            const listItems = categories.map(category => {
+                return `<li title="${category.description}">${category.title}</li>`
+            });
+            return listItems.join('')
+        }
+
+        const calcDiscount = function(discount, price) {
+            let discountElement = '';
+            if (discount) {
+                discountElement = `<div class="discount">
+                    -${Math.round((price / (discount + price) - 1)*-100)}%<span>${price + discount}</span>
+                </div>`
+            }
+            return discountElement;
+        }
+
+        this._data.forEach(({ categories, description, discount, featuredImage, images, price, title }) => {
             const articleTemplate = document.createElement('template');
-            articleTemplate.innerHTML = `<article data-categories="${e.categories.map(category=>category.title)}">
-                <img class="image" src="http://localhost:3000/images/${e.images[e.featuredImage].id}/large" alt="${e.images[e.featuredImage].alt}">
+            articleTemplate.innerHTML = `<article data-categories="${dataSetCategories(categories)}">
+                <img class="image" src="http://localhost:3000/images/${images[featuredImage].id}/large" alt="${images[featuredImage].alt}">
                 <div class="content">
-                    <h3 class="secondary-heading">${e.title}</h3>
+                    <h3 class="secondary-heading">${title}</h3>
                     <div class="description">
-                        <p title="${e.description}">${e.description}</p>
+                        <p title="${description}">${description}</p>
                     </div>
                     <ul class="categories">
-                        ${e.categories.map(category => {
-                        return `<li title="${category.description}">${category.title}</li>`
-                        }).join('')}
+                        ${categoriesListItems(categories)}
                     </ul>
                     <div class="price">
-                        <div class="price-tag">Price: <span>${e.price},-</span></div>
-                        ${e.discount ? `<div class="discount">-${Math.round((e.price / (e.discount + e.price) - 1)*-100)}%<span>${e.price + e.discount}</span></div>` : ``}
+                        <div class="price-tag">Price: <span>${price},-</span></div>
+                        ${calcDiscount(discount, price)}
                     </div>
                 </div>
             </article>`;
