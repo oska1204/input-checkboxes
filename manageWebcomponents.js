@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
                         bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
                     }
                 });
-                return bikeCategory
             });
             return bikeObj;
         });
