@@ -3,57 +3,90 @@ window.addEventListener('DOMContentLoaded', () => {
     const inputCheckboxes = document.querySelector('input-checkboxes');
     const sectionArticles = document.querySelector('section-articles');
 
-    const categoriesApiSuccess = function(categoriesData) {
-        inputCheckboxes.setData = categoriesData.data.map(obj => {
+    const dataObj = {
+        categoriesData: null,
+        bikesData: null
+    }
+
+    let waitingForMainApis = 2; 
+
+    const isMainApisDone = function() {
+        if (waitingForMainApis === 0) {
+            theFunction(dataObj);
+        }
+    }
+
+    const theFunction = function({ categoriesData: categoriesData, bikesData: bikesData }) {
+        inputCheckboxes.setData = categoriesData.map(categoryObj => {
             return { 
-                name: obj.title,
-                description: obj.description
+                name: categoryObj.title,
+                description: categoryObj.description
             }
         });
-        
-        const bikesApiSuccess = function(bikesData) {
-            const theData = bikesData.data.map(bikeObj => {
-                bikeObj.categories = bikeObj.categories.map(bikeCategory => {
-                    categoriesData.data.forEach(categoryObj => {
-                        if (bikeCategory === categoryObj.id) {
-                            bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
-                        }
-                    });
-                    return bikeCategory
-                });
-                return bikeObj;
-            });
-            const howManyPendingArr = theData.map(e=>false);
-            theData.forEach(e => {
-                const imagesApiSuccess = function(bikesData) {
-                    howManyPendingArr.pop();
-                    e.images[e.featuredImage] = bikesData.data;
-                    checkIfDone();
-                }
-                
-                const checkIfDone = function() {
-                    if (!howManyPendingArr.includes(false)) {
-                        sectionArticles.setData = theData;
-                        sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
+        console.log(inputCheckboxes.getData)
+        const bikesArr = bikesData.map(bikeObj => {
+            bikeObj.categories = bikeObj.categories.map(bikeCategory => {
+                categoriesData.forEach(categoryObj => {
+                    if (bikeCategory === categoryObj.id) {
+                        bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
                     }
-                }
-                const imagesApiError = function(bikesData) {
-                    console.log(error);
-                }
-
-                api(`http://localhost:3000/images/${e.images[e.featuredImage]}`, imagesApiSuccess, imagesApiError);
+                });
+                return bikeCategory
             });
+            return bikeObj;
+        });
+        let waitingForImageApis = bikesArr.length;
+        
+        const isImageApisDone = function() {
+            if (waitingForImageApis === 0) {
+                sectionArticles.setData = bikesArr;
+                sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
+            }
         }
+        
+        bikesArr.forEach(bikesObj => {
+            const imageApiSuccess = function({ data: imageData }) {
+                bikesObj.images[bikesObj.featuredImage] = imageData;
+                waitingForImageApis -= 1;
+                isImageApisDone();
+            }
+            
+            const imageApiError = function(error) {
+                console.log(error);
+                waitingForImageApis -= 1;
+                isImageApisDone();
+            }
+            
+            api(`http://localhost:3000/images/${bikesObj.images[bikesObj.featuredImage]}`, imageApiSuccess, imageApiError);
+        });
+    }
     
-        const bikesApiError = function(error) {
-            console.log(error);
-        };
 
-        api('http://localhost:3000/bikes', bikesApiSuccess, bikesApiError);
+    const bikesApiSuccess = function({ data: bikesData }) {
+        dataObj['bikesData'] = bikesData;
+        waitingForMainApis -= 1;
+        isMainApisDone();
+    }
+    
+    const bikesApiError = function(error) {
+        console.log(error);
+        waitingForMainApis -= 1;
+        isMainApisDone();
+    };
+    
+    api('http://localhost:3000/bikes', bikesApiSuccess, bikesApiError);
+
+
+    const categoriesApiSuccess = function({ data: categoriesData }) {
+        dataObj['categoriesData'] = categoriesData;
+        waitingForMainApis -= 1;
+        isMainApisDone();
     }
 
     const categoriesApiError = function(error) {
         console.log(error);
+        waitingForMainApis -= 1;
+        isMainApisDone();
     };
 
     api('http://localhost:3000/categories', categoriesApiSuccess, categoriesApiError);
