@@ -23,9 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 description: categoryObj.description
             }
         });
-        console.log(inputCheckboxes.getData)
         const bikesArr = bikesData.map(bikeObj => {
-            bikeObj.categories = bikeObj.categories.map(bikeCategory => {
+            bikeObj.categories.forEach(bikeCategory => {
                 categoriesData.forEach(categoryObj => {
                     if (bikeCategory === categoryObj.id) {
                         bikeCategory = { "title": categoryObj.title, "description": categoryObj.description }
@@ -90,6 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     api('http://localhost:3000/categories', categoriesApiSuccess, categoriesApiError);
+
 
     inputCheckboxes.addEventListener('tags-changed', e => {
         sectionArticles.setCurrentCategories = e.target.getTags;
