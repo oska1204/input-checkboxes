@@ -10,7 +10,7 @@ class SectionArticles extends HTMLElement {
         this.shadowRoot.appendChild(style);
         const template = document.createElement('template');
         template.innerHTML += `
-        <h2 class="primary-heading">List of cats</h2>
+        <h2 class="primary-heading">List af cykler</h2>
         <section></section>
         `;
         this.shadowRoot.appendChild(template.content);
