@@ -64,7 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
         return waitingForMainApis > 0 ? false : true ;
     }
 
-    const apiEazy2Read = function(name) {
+    const apiHandler = function(name) {
         const success = function(apiJson) {
             apiDataObj[name] = apiJson.data;
             waitingForMainApis -= 1;
@@ -78,12 +78,12 @@ window.addEventListener('DOMContentLoaded', () => {
         return {success, error};
     }
 
-    const { success: categoriesApiSuccess, error: categoriesApiError } = apiEazy2Read('categoriesData');
+    const { success: categoriesApiSuccess, error: categoriesApiError } = apiHandler('categoriesData');
 
     api('http://localhost:3000/categories', categoriesApiSuccess, categoriesApiError);
 
 
-    const { success: bikesApiSuccess, error: bikesApiError } = apiEazy2Read('bikesData');
+    const { success: bikesApiSuccess, error: bikesApiError } = apiHandler('bikesData');
     
     api('http://localhost:3000/bikes', bikesApiSuccess, bikesApiError);
 
