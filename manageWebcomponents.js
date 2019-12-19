@@ -64,33 +64,26 @@ window.addEventListener('DOMContentLoaded', () => {
         return waitingForMainApis > 0 ? false : true ;
     }
 
-
-    const categoriesApiSuccess = function({ data: categoriesData }) {
-        apiDataObj.categoriesData = categoriesData;
-        waitingForMainApis -= 1;
-        isMainApisDone();
+    const apiEazy2Read = function(name) {
+        const success = function(apiJson) {
+            apiDataObj[name] = apiJson.data;
+            waitingForMainApis -= 1;
+            isMainApisDone();
+        }
+        const error = function(error) {
+            console.log(error);
+            waitingForMainApis -= 1;
+            isMainApisDone();
+        }
+        return {success, error};
     }
 
-    const categoriesApiError = function(error) {
-        console.log(error);
-        waitingForMainApis -= 1;
-        isMainApisDone();
-    };
+    const { success: categoriesApiSuccess, error: categoriesApiError } = apiEazy2Read('categoriesData');
 
     api('http://localhost:3000/categories', categoriesApiSuccess, categoriesApiError);
 
 
-    const bikesApiSuccess = function({ data: bikesData }) {
-        apiDataObj.bikesData = bikesData;
-        waitingForMainApis -= 1;
-        isMainApisDone();
-    }
-    
-    const bikesApiError = function(error) {
-        console.log(error);
-        waitingForMainApis -= 1;
-        isMainApisDone();
-    };
+    const { success: bikesApiSuccess, error: bikesApiError } = apiEazy2Read('bikesData');
     
     api('http://localhost:3000/bikes', bikesApiSuccess, bikesApiError);
 
