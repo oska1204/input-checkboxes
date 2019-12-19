@@ -4,7 +4,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const sectionArticles = document.querySelector('section-articles');
     
     const apiDataObj = {};
-    
+        
+    const createDeducter = function(amount, handler, passHandler = undefined) {
+        return () => amount === 1 ? passHandler ? handler(passHandler) : handler() : amount-- ;
+    }
+
+    const apiHandler = function(name, path, deducter) {
+        const success = function(apiJson) {
+            path[name] = apiJson.data;
+            deducter();
+        }
+        const error = function(error) {
+            console.log(error);
+            deducter();
+        }
+        return {success, error};
+    }
+
     const responseHandler = function({ categoriesData, bikesData }) {
         inputCheckboxes.setData = categoriesData.map(categoryObj => {
             return {
@@ -26,68 +42,33 @@ window.addEventListener('DOMContentLoaded', () => {
             });
             return bikeObj;
         });
-        
-        
-        let waitingForImageApis = bikesArr.length;
-        
-        const isImageApisDone = function() {
-            if (waitingForImageApis === 0) {
-                sectionArticles.setData = bikesArr;
-                sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
-            }
+
+        const imageHandler = function() {
+            sectionArticles.setData = bikesArr;
+            sectionArticles.setCurrentCategories = inputCheckboxes.getTags;
         }
         
+        const imageApiDeducter = createDeducter(bikesArr.length, imageHandler);
+        
         bikesArr.forEach(bikesObj => {
-            const imageApiSuccess = function({ data: imageData }) {
-                bikesObj.images[bikesObj.featuredImage] = imageData;
-                waitingForImageApis -= 1;
-                isImageApisDone();
-            }
-            
-            const imageApiError = function(error) {
-                console.log(error);
-                waitingForImageApis -= 1;
-                isImageApisDone();
-            }
+            const { success: imageApiSuccess, error: imageApiError } = apiHandler(bikesObj.featuredImage, bikesObj.images, imageApiDeducter);
             
             api(`http://localhost:3000/images/${bikesObj.images[bikesObj.featuredImage]}`, imageApiSuccess, imageApiError);
         });
     }
-
-
-    let waitingForMainApis = 2;
-
-    const isMainApisDone = function() {
-        if (waitingForMainApis === 0) {
-            responseHandler(apiDataObj);
-        }
-        return waitingForMainApis > 0 ? false : true ;
-    }
-
-    const apiHandler = function(name) {
-        const success = function(apiJson) {
-            apiDataObj[name] = apiJson.data;
-            waitingForMainApis -= 1;
-            isMainApisDone();
-        }
-        const error = function(error) {
-            console.log(error);
-            waitingForMainApis -= 1;
-            isMainApisDone();
-        }
-        return {success, error};
-    }
-
-    const { success: categoriesApiSuccess, error: categoriesApiError } = apiHandler('categoriesData');
+    
+    const mainApiDeducter = createDeducter(2, responseHandler, apiDataObj);
+    
+    const { success: categoriesApiSuccess, error: categoriesApiError } = apiHandler('categoriesData', apiDataObj, mainApiDeducter);
 
     api('http://localhost:3000/categories', categoriesApiSuccess, categoriesApiError);
-
-
-    const { success: bikesApiSuccess, error: bikesApiError } = apiHandler('bikesData');
+    
+    
+    const { success: bikesApiSuccess, error: bikesApiError } = apiHandler('bikesData', apiDataObj, mainApiDeducter);
     
     api('http://localhost:3000/bikes', bikesApiSuccess, bikesApiError);
-
-
+    
+    
     inputCheckboxes.addEventListener('tags-changed', e => {
         sectionArticles.setCurrentCategories = e.target.getTags;
     });
