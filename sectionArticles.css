@@ -21,7 +21,7 @@ article {
     background: linear-gradient(135deg, #f1dfcb, #f5ece2);
     display: grid;
     margin: .5rem;
-    grid-template-rows: 200px auto;
+    grid-template-rows: 200px auto; /*remove this for full img*/
 }
 .image {
     width: 100%;
